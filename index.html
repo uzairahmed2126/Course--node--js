@@ -1,0 +1,59 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Screen Sharing</title>
+  </head>
+  <body>
+    <h1>Screen Sharing Demo</h1>
+    <button id="startButton">Start Screen Sharing</button>
+    <button id="stopButton" disabled>Stop Screen Sharing</button>
+    <video id="screenVideo" autoplay style="width: 100%"></video>
+
+    <script src="screenShare.js"></script>
+  </body>
+  <script>
+    const startButton = document.getElementById("startButton");
+    const stopButton = document.getElementById("stopButton");
+    const screenVideo = document.getElementById("screenVideo");
+    let screenStream = null;
+
+    startButton.onclick = async () => {
+      try {
+        // Request the screen media stream from the user
+        screenStream = await navigator.mediaDevices.getDisplayMedia({
+          video: {
+            cursor: "always", // You can set "always", "motion", or "never"
+          },
+          audio: false, // Set to true if you also want to capture system audio
+        });
+        screenVideo.srcObject = screenStream;
+
+        startButton.disabled = true;
+        stopButton.disabled = false;
+
+        // Handle when the user stops screen sharing
+        screenStream.getVideoTracks()[0].addEventListener("ended", () => {
+          stopSharing();
+        });
+      } catch (err) {
+        console.error("Error: " + err);
+      }
+    };
+
+    stopButton.onclick = () => {
+      stopSharing();
+    };
+
+    function stopSharing() {
+      if (screenStream) {
+        let tracks = screenStream.getTracks();
+        tracks.forEach((track) => track.stop());
+        screenVideo.srcObject = null;
+        startButton.disabled = false;
+        stopButton.disabled = true;
+      }
+    }
+  </script>
+</html> -->
